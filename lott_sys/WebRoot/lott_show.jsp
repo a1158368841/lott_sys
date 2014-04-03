@@ -8,27 +8,65 @@
     <title>My JSP 'lott_show.jsp' starting page</title>
 
   </head>
-  
+
   <body>
+
     <table>
     	<tr>
     		<td>фз╨е</td>
-    		<td>жп╫╠╨ебК</td>
+    		
     		<td>╨ебК1</td>
     		<td>╨ебК2</td>
     		<td>╨ебК3</td>
     		<td>╨ебК4</td>
     		<td>╨ебК5</td>
+    		<td>╨ебК1пео╒</td>
+    		<td>╨ебК2пео╒</td>
+    		<td>╨ебК3пео╒</td>
+    		<td>╨ебК4пео╒</td>
+    		<td>╨ебК5пео╒</td>
     	</tr>
-    	<s:iterator value="#request.lottlist" id="lott">
+    	<s:iterator value="#request.lottinfolist" var="lott">
     		<tr>
-    		<td><s:property value="#lott.lottId"/></td>
-    		<td><s:property value="#lott.lottNums"/></td>
+    		
     		<td><s:property value="#lott.num1"/></td>
     		<td><s:property value="#lott.num2"/></td>
     		<td><s:property value="#lott.num3"/></td>
     		<td><s:property value="#lott.num4"/></td>
     		<td><s:property value="#lott.num5"/></td>
+    		
+    		<td><s:property value="#lott.lottId"/></td>
+    		<td><s:property value="#lott.num1info"/></td>
+    		<td><s:property value="#lott.num2info"/></td>
+    		<td><s:property value="#lott.num3info"/></td>
+    		<td><s:property value="#lott.num4info"/></td>
+    		<td><s:property value="#lott.num5info"/></td>
+    		</tr>
+    	</s:iterator>
+    </table>
+    
+    
+    <table>
+    	<tr>
+    		<td>фз╨е</td>
+    		
+    		<td>╨ебК1</td>
+    		<td>╨ебК2</td>
+    		<td>╨ебК3</td>
+    		<td>╨ебК4</td>
+    		<td>╨ебК5</td>
+    		
+    	</tr>
+    	<s:iterator value="#request.lottlist" var="lott">
+    		<tr>
+    		
+    		<td><s:property value="#lott.num1"/></td>
+    		<td><s:property value="#lott.num2"/></td>
+    		<td><s:property value="#lott.num3"/></td>
+    		<td><s:property value="#lott.num4"/></td>
+    		<td><s:property value="#lott.num5"/></td>
+    		
+    	
     		</tr>
     	</s:iterator>
     </table>

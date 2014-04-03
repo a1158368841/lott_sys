@@ -4,7 +4,9 @@
 package com.lott_sys.util;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.lott_sys.dao.DictionaryDAO;
 import com.lott_sys.dao.LotteryDAO;
@@ -94,15 +96,84 @@ public class LotteryOperator {
 	
 	public int getSum(Lottery l){
 		int sum=0;
-		
+		sum+= Integer.valueOf(l.getNum1());
+		sum+= Integer.valueOf(l.getNum2());
+		sum+= Integer.valueOf(l.getNum3());
+		sum+= Integer.valueOf(l.getNum4());
+		sum+= Integer.valueOf(l.getNum5());
 		return sum;
 	}
 	
+	//获取每个号码对应字典项的和
+	public int getInfoSum(Lottery l,int dict_entry){
+		int sum=0;
+		sum = dictionarydao.getDictcode(l.getNum1(), dict_entry)
+			+ dictionarydao.getDictcode(l.getNum2(), dict_entry)
+			+ dictionarydao.getDictcode(l.getNum3(), dict_entry)
+			+ dictionarydao.getDictcode(l.getNum4(), dict_entry)
+			+ dictionarydao.getDictcode(l.getNum5(), dict_entry);
+		return sum;
+	}
+/*	
+	//根据字典项的和判断号码的组合情况（以大小为例，小:0,大：1）:若1小4大,则和为4
+	public List<Lottery> query(int a,int b,int dict_entry,int begin,int end){
+		List<Lottery> lotterys = new ArrayList<Lottery>();
+		List<Lottery> list = lotterydao.query(begin, end);
+		for(Lottery l:list){
+			int sum = this.getInfoSum(l, dict_entry);
+			if(b == sum){
+				lotterys.add(l);
+			}
+		}
+		return lotterys;
+	}*/
+	
+	//根据字典项的和判断号码的组合情况（以012路为例，0路:0,1路：1,2路：10）:若分别为 1,3,1 则和为13
+	public List<Lottery> query(int a,int b,int c,int dict_entry,int begin,int end){
+		List<Lottery> lotterys = new ArrayList<Lottery>();
+		List<Lottery> list = lotterydao.query(end);
+		for(Lottery l:list){
+			int sum = this.getInfoSum(l, dict_entry);
+			if((b+10*c) == sum){
+				lotterys.add(l);
+			}
+		}
+		return lotterys;
+	}
+	
+	public List<Lottery> query(int dx,int jo,int zh,int l012,int nums){
+		List<Lottery> lotterys = new ArrayList<Lottery>();
+		List<Lottery> list = lotterydao.query(nums);
+
+		for(Lottery l:list){
+			if((dx == -1 || this.getInfoSum(l, 1001) == dx) 
+			   && (jo == -1 || this.getInfoSum(l, 1002) == jo)
+			   && (zh == -1 || this.getInfoSum(l, 1003) == zh)
+			   && (l012 == -1 || this.getInfoSum(l, 1004) == l012)){
+				lotterys.add(l);
+			}
+		}
+		return lotterys;
+	}
+	 
+	
+	public List<Lottery> query(String str,int dict_entry,int begin,int end){
+		List<Lottery> lotterys = new ArrayList<Lottery>();
+		return lotterys;
+	}
 	
 	public LotteryDAO getLotterydao() {
 		return lotterydao;
 	}
 	public void setLotterydao(LotteryDAO lotterydao) {
 		this.lotterydao = lotterydao;
+	}
+
+	public DictionaryDAO getDictionarydao() {
+		return dictionarydao;
+	}
+
+	public void setDictionarydao(DictionaryDAO dictionarydao) {
+		this.dictionarydao = dictionarydao;
 	}
 }

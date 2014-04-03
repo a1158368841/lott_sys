@@ -1,5 +1,6 @@
 package com.lott_sys.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.LockMode;
 import org.slf4j.Logger;
@@ -34,6 +35,20 @@ public class LotteryDAO extends HibernateDaoSupport {
 
 	protected void initDao() {
 		// do nothing
+	}
+	
+	public List<Lottery> query(int begin,int end){
+		List<Lottery> list = new ArrayList<Lottery>();
+		String hql ="select * from Lottery where lottId between "+begin+" and "+end;
+		list = getHibernateTemplate().find(hql);
+		return list;
+	}
+	
+	public List<Lottery> query(int nums){
+		List<Lottery> list = new ArrayList<Lottery>();
+		String hql ="from Lottery order by lottId desc ";//limit 0,"+nums;
+		list = (List<Lottery>)getHibernateTemplate().find(hql);
+		return list;
 	}
 
 	public void save(Lottery transientInstance) {

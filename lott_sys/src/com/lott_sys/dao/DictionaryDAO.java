@@ -40,13 +40,14 @@ public class DictionaryDAO extends HibernateDaoSupport {
 	public int getDictcode(String num,int dict_entry){
 		int dictcode = -1;
 		Session se = getSession();
-		String hql = "select dict_code from dictionary where instr(strentry," + num + ") > 0 and dict_entry= " + dict_entry;		
+		String hql = "select dictCode from Dictionary where instr(strentry,'" + num + "') > 0 and dict_entry= " + dict_entry;		
 		List<Integer> list =getHibernateTemplate().find(hql);		
 		if(list.isEmpty()){
 			dictcode = -1;
 		}else{
 			dictcode = list.get(0);
 		}
+		//System.out.println(dictcode);
 		return dictcode;
 	}
 

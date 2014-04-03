@@ -11,5 +11,9 @@
 			<result name="success">/success.jsp</result>
 			<result name="show">/lott_show.jsp</result>
 		</action>
+		
+		<action name="lfilter" class="lottfilteraction" method="filter">
+			<result name="filter">/success.jsp</result>
+		</action>
 	</package>
 </struts>    
